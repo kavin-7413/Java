@@ -1,0 +1,36 @@
+Program 7: Threads
+class MyThread extends Thread {
+    public MyThread(String name) {
+        super(name); // Set thread name
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(getName() + " - Priority: " + getPriority() + " - Count: " + i);
+            try {
+                Thread.sleep(100); // Slight pause to observe switching
+            } catch (InterruptedException e) {
+                System.out.println(getName() + " interrupted");
+            }
+        }
+    }
+}
+
+public class ThreadPriorityDemo {
+    public static void main(String[] args) {
+        // Create three threads
+        MyThread low = new MyThread("Low Priority Thread");
+        MyThread medium = new MyThread("Medium Priority Thread");
+        MyThread high = new MyThread("High Priority Thread");
+
+        // Set priorities
+        low.setPriority(Thread.MIN_PRIORITY);       // Priority 1
+        medium.setPriority(Thread.NORM_PRIORITY);   // Priority 5
+        high.setPriority(Thread.MAX_PRIORITY);      // Priority 10
+
+        // Start threads
+        low.start();
+        medium.start();
+        high.start();
+    }
+}
